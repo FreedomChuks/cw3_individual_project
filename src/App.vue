@@ -70,7 +70,7 @@ export default {
             const lessonIndex = this.lessons.findIndex(lesson => lesson._id === lessonID);
             if (lessonIndex != -1) {
                 console.log("heeeree");
-                this.lessons[lessonIndex].space -= 1;       
+                this.lessons[lessonIndex].availablespace -= 1;       
             }
              this.addToCart(lessonID, lesson);
         },
@@ -82,18 +82,18 @@ export default {
           console.log("here");
             const itemIndex = this.cartItems.findIndex(item => item.lessonID === lessonID);
             if (itemIndex != -1) {
-                this.cartItems[itemIndex].space += 1;
+                this.cartItems[itemIndex].availablespace += 1;
             } else {
-                this.cartItems.push({ lessonID: lessonID, space: 1, lesson: lesson });
+                this.cartItems.push({ lessonID: lessonID, availablespace: 1, lesson: lesson });
             }
         },
         removeLessonFromCart: function (index) {
-            this.cartItems[index].space = this.cartItems[index].space - 1;
+            this.cartItems[index].availablespace = this.cartItems[index].availablespace - 1;
             const lessonIndex = this.lessons.findIndex(lesson => lesson._id === this.cartItems[index].lessonID);
             if (lessonIndex != -1) {
-                this.lessons[lessonIndex].space += 1;
+                this.lessons[lessonIndex].availablespace += 1;
             }
-            if (this.cartItems[index].space == 0) {
+            if (this.cartItems[index].availablespace == 0) {
                 this.cartItems.splice(index, 1);
             }
             if(this.cartItems.length == 0){
@@ -104,14 +104,14 @@ export default {
         cartCount: function(){
             let cartQuantity = 0;
             for (let index = 0; index < this.cartItems.length; index++) {
-                cartQuantity += this.cartItems[index].space;
+                cartQuantity += this.cartItems[index].availablespace;
                 
             }
             return cartQuantity;
         },
         searchLessons: function () {
             
-            fetch("https://cst3145-cw2-backend.herokuapp.com/collection/lessons/" + this.searchTxt).then(
+            fetch("https://cw2-backends.herokuapp.com/collection/lessons/" + this.searchTxt).then(
             (response) => {
                 response.json().then(
                     (data) => {
@@ -122,7 +122,7 @@ export default {
             })
         },
         checkOut: function (checkOutName, checkOutNumber) {
-            fetch('https://cst3145-cw2-backend.herokuapp.com/collection/orders', {
+            fetch('https://cw2-backends.herokuapp.com/collection/orders', {
                 method: 'POST', // set the HTTP method as 'POST'
                 headers: {
                     'Content-Type': 'application/json', // set the data type as JSON
@@ -135,12 +135,12 @@ export default {
                 });
             for (let index = 0; index < this.cartItems.length; index++) {
                 const lesson = this.cartItems[index].lesson;
-                fetch(`https://cst3145-cw2-backend.herokuapp.com/collection/lessons/${lesson._id}`, {
+                fetch(`https://cw2-backends.herokuapp.com/collection/lessons/${lesson._id}`, {
                     method: 'PUT', // set the HTTP method as 'POST'
                     headers: {
                         'Content-Type': 'application/json', // set the data type as JSON
                     },
-                    body: JSON.stringify({ space: lesson.space}), // need to stringify the JSON object
+                    body: JSON.stringify({ availablespace: lesson.availablespace}), // need to stringify the JSON object
                 })
                     .then(response => response.json())
                     .then(responseJSON => {
@@ -168,7 +168,7 @@ export default {
     },
     
     created: function () {
-        fetch("https://cst3145-cw2-backend.herokuapp.com/collection/lessons").then(
+        fetch("https://cw2-backends.herokuapp.com/collection/lessons").then(
              (response) => {
                 response.json().then(
                      (data) => {
