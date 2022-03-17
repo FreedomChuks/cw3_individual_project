@@ -1,52 +1,37 @@
 <template>
      <div>
-         <div class="container">
-                <div v-if="(cartItems.length > 0)" class="row">
-
-
-                    <div  v-for="(cartItem, index) in cartItems" :key="cartItem.lessonID" class="col-md-4" style="margin-bottom: 20px;">
-                        <div class="col-md-12 check-out-1" >
-                            <div class="row">
-                                <div class="col-md-6 subject-box">
-                                    <p>Subject: {{ cartItem.lesson.title }}<br> Location: {{ cartItem.lesson.location }}<br> Price: <span>&#163;{{ cartItem.lesson.price }}</span><br>  Icon: <span v-bind:class="cartItem.lesson.icon"></span> <br>  Quantity: <span > {{cartItem.space}}</span></p>
-                                </div>
-                                <div class="col-md-6">
-                                    <img v-bind:src="`https://cw2-backends.herokuapp.com/${cartItem.lesson.image}`" alt=""
-                                        style="width: 100px; height: 100px; margin-top: 20px">
-                                </div>
-                            </div>
-                            <button v-on:click="removeLesson(index)" type="button" class="btn btn-1 btn-info" style="width: 100%">Remove from
-                                Cart</button>
+        <div class="container">
+            <div v-if="(cartItems.length > 0)" class="row">
+            <div class="row">
+                <div v-for="(cartItem, index) in cartItems" :key="cartItem.lessonID" class="col-md-3 mb-4">
+                    <div class="card">
+                      <img class="card-img" v-bind:src="`https://cw2-backends.herokuapp.com/${cartItem.lesson.image}`" alt="Lesson Image">
+                        <div class="card-body">
+                          <h6>Subject: {{ cartItem.lesson.title }}</h6>
+                          <h6>Location: Location: {{ cartItem.lesson.location }}</h6>
+                          <h6>Price: £{{ cartItem.lesson.price }}</h6>
+                            <button  v-on:click="removeLesson(index)" class="btn add_to_card-btn">Remove from Cart</button>
                         </div>
                     </div>
-
-                   
-
                 </div>
             </div>
-
-            
-            <section id="check-out-form">
-                <div class="container">
-                    <div class="row check-out-row">
-                        <div class="col-md-12">
-                            
-                                <div class="row">
-                                    <div class="col">
-                                        <input v-on:keyup="validateRegexCheckOut" type="text" class="form-control" placeholder="Enter your full name" v-model="checkOutName" >
-                                    </div>
-                                    <div class="col">
-                                        <input v-on:keyup="validateRegexCheckOut" type="text" class="form-control" placeholder="Enter your mobile number" v-model="checkOutNumber" >
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-center">
-                                    <button v-bind:disabled="cannotCheckOut" v-on:click="checkOut(checkOutName, checkOutNumber)" type="button" class="btn checkout-btn btn-info">Check Out</button>
-                                </div>
-                           
-                        </div>
-                    </div>
+            <!-- Start of checkout UI -->
+            <h2 class="text-center mt-5 mb-5">Checkout</h2>
+            <form class="mb-5" action="#">
+              <div class="form-row">
+                <div class="col">
+                  <input type="text" class="form-control" v-on:keyup="validateRegexCheckOut" v-model="checkOutName" placeholder="Enter Name" required>
                 </div>
-            </section>
+                <div class="col">
+                  <input type="text" class="form-control" v-on:keyup="validateRegexCheckOut"  v-model="checkOutNumber" placeholder="Phone Number" required>
+                </div>
+                <input style="margin-bottom: 50px;" v-bind:disabled="cannotCheckOut" v-on:click="checkOut(checkOutName, checkOutNumber)" class="btn btn-primary" type="submit" value="Place Order">
+                 
+              </div>
+            </form>
+            <!-- End of checkout UI -->
+            </div>
+        </div>
      </div>
 </template>
 

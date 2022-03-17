@@ -1,28 +1,40 @@
 <template>
   <div id="app">
 
+        <!-- header -->
+    <div class="jumbotron">
 
-    <section id="search-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <h2>Progamming Book Store</h2>
-                    </div>
-                    <div class="col-md-7">
-                        
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" v-on:keyup="searchLessons" v-model="searchTxt">
-                       
-                    </div>
-                    <div class="col-md-2 cart">
-                        <button class="btn btn-1 btn-info" v-bind:disabled="(cartItems.length <= 0)"
-                        v-on:click="updateShowProduct"><p class="fa fa-shopping-cart mt-2" style="color: white;"></p> <span
-                            style="color: white">{{cartCount()}}</span></button>
-                    </div>
-                </div>
+        <div class="container">
+      <!-- Grid  -->
+            <div class="row">
+
+                <div class="col">
+                    <h2 class="logo">Lesson</h2>
+                  </div>
+
+                  <div class="col-md-6">
+                    <form>
+                        <input class="search_form" type="text" v-model="searchTxt" v-on:keyup="searchLessons" placeholder="Search Courses" >
+                    </form>
+                  </div>
+
+                  <div class="col">
+                    	<!-- Disable and Enable the cart depending on whether or not it is empty -->
+						<button class="cart-button btn"  v-bind:disabled="(cartItems.length <= 0)" v-on:click="updateShowProduct" ><i class="fa fa-shopping-cart"></i> Cart {{cartItemCount}}</button>
+                  </div>
             </div>
-        </section>
 
-        <section id="navigation">
+        </div>
+
+    </div>
+        <!-- end of header -->
+  <div class="container-fluid nav_view p-4">
+    <h3 class="text-center">
+        {{homepage}}
+    </h3>
+   </div>
+
+        <!-- <section id="navigation">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -30,7 +42,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <section v-if="showProduct" id="product">
             <Lessons :lessons="lessons" v-on:addLesson="addLessonToCart"></Lessons>
