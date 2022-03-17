@@ -1,7 +1,6 @@
 <template>
      <div>
-        <div class="container">
-            <div v-if="(cartItems.length > 0)" class="row">
+        <div class="container mt-5 mb-5">
             <div class="row">
                 <div v-for="(cartItem, index) in cartItems" :key="cartItem.lessonID" class="col-md-3 mb-4">
                     <div class="card">
@@ -25,14 +24,13 @@
                 <div class="col">
                   <input type="text" class="form-control" v-on:keyup="validateRegexCheckOut"  v-model="checkOutNumber" placeholder="Phone Number" required>
                 </div>
-                <input style="margin-bottom: 50px;" v-bind:disabled="cannotCheckOut" v-on:click="checkOut(checkOutName, checkOutNumber)" class="btn btn-primary" type="submit" value="Place Order">
+                <input style="margin-bottom: 50px;" v-bind:disabled="cannotCheckOut" v-on:click="checkOut(checkOutName, checkOutNumber)" class="btn add_to_card-btn" type="submit" value="Place Order">
                  
               </div>
             </form>
             <!-- End of checkout UI -->
             </div>
         </div>
-     </div>
 </template>
 
 <script>

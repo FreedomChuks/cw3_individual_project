@@ -1,5 +1,5 @@
 <template>
-   <div class="mt-5">
+   <div>
         <h2 class="text-center mt-5 mb-5"></h2>
         <div class="container">
             <div class="row">
@@ -7,19 +7,19 @@
                 <aside>
                     <h6>Sort By</h6>
                     <div class="custom-control custom-radio">
-                      <input type="radio" id="subject" value="subject" name="" class="custom-control-input">
+                      <input type="radio" id="subject" value="subject" name=""  v-model="attribute" class="custom-control-input">
                       <label class="custom-control-label" for="subject">Subject</label>
                     </div>
                     <div class="custom-control custom-radio">
-                      <input type="radio" id="location" value="location" name="" class="custom-control-input">
+                      <input type="radio" id="location" value="location" name=""  v-model="attribute" class="custom-control-input">
                       <label class="custom-control-label" for="location">Location</label>
                     </div>
                     <div class="custom-control custom-radio mb-1">
-                      <input type="radio" id="price" value="price" name="" class="custom-control-input">
+                      <input type="radio" id="price" value="price" name="" v-model="attribute" class="custom-control-input">
                       <label class="custom-control-label" for="price">Price</label>
                     </div>
                     <div class="custom-control custom-radio mb-1">
-                      <input type="radio" id="availability" value="availability" name="" class="custom-control-input">
+                      <input type="radio" id="availability" value="availability" name="" v-model="attribute" class="custom-control-input">
                       <label class="custom-control-label" for="availability">Availability</label>
                     </div>
 
@@ -93,9 +93,9 @@ export default {
            
         order: 'asc',
         attribute: 'subject',
-        sortOrders: {
-            Ascending: 'asc',
-            Descending: 'desc'
+        sort: {
+            sortingMethod: "location",
+            sortingOrder: "ascending",
         },
         sortAttributes: {
             Subject: 'subject',

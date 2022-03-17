@@ -20,7 +20,7 @@
 
                   <div class="col">
                     	<!-- Disable and Enable the cart depending on whether or not it is empty -->
-						<button class="cart-button btn"  v-bind:disabled="(cartItems.length <= 0)" v-on:click="updateShowProduct" ><i class="fa fa-shopping-cart"></i> Cart {{cartItemCount}}</button>
+						<button class="cart-button btn"  v-bind:disabled="(cartItems.length <= 0)" v-on:click="updateShowProduct" ><i class="fa fa-shopping-cart"></i> Cart {{cartCount()}}</button>
                   </div>
             </div>
 
@@ -30,19 +30,10 @@
         <!-- end of header -->
   <div class="container-fluid nav_view p-4">
     <h3 class="text-center">
-        {{homepage}}
+        Home | Store
     </h3>
    </div>
 
-        <!-- <section id="navigation">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>Home | Store</p>
-                    </div>
-                </div>
-            </div>
-        </section> -->
 
         <section v-if="showProduct" id="product">
             <Lessons :lessons="lessons" v-on:addLesson="addLessonToCart"></Lessons>
@@ -50,7 +41,6 @@
 
         <section v-else id="check-out">
             <Checkout :cartItems="cartItems" v-on:removeLesson="removeLessonFromCart" v-on:checkOut="checkOut"></Checkout>
-            
         </section>
   </div>
 </template>
